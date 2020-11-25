@@ -1,0 +1,72 @@
+{% extends 'index.html' %} 
+
+{% block content %}
+
+    <center>
+        
+        <form method="POST" action="http://127.0.0.1:5000/see_the_data">
+            <br>
+            <h3>Medical Appointment No-Show Data</h3>
+            <br>
+            <div class="input-group mb-3" style="width: 500px">
+                <span class="input-group-text" style="width: 250px">Row to display:</span>
+                <input type="number" name="num_disp" step="1" min="0" max="100" style="width: 250px" class="form-control" required=True/>
+            </div>
+            <button 
+                type="submit"
+                style="background-color: rgb(4,122,133); color: whitesmoke" 
+                class="btn"
+            >
+                Show
+            </button>
+            </div>
+        </form>
+
+        <center>
+            {% if disp %}
+                <br>
+                <h5 class="text-center my-3">
+                    Showing {{num}} random data of 95301 total data
+                </h5>
+                <div class='mt-4'>
+                    <table class="content-table">
+                        <thead>
+                            <tr>
+                            {% for header in disp[0].keys() %}
+                                <th>{{header}}</th>
+                            {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in disp %}
+                                <tr>
+                                    <td>{{row['patientID']}}</td>
+                                    <td>{{row['apptID']}}</td>
+                                    <td>{{row['gender']}}</td>
+                                    <td>{{row['age']}}</td>
+                                    <td>{{row['neighborhood']}}</td>
+                                    <td>{{row['scholarship']}}</td>
+                                    <td>{{row['hypertension']}}</td>
+                                    <td>{{row['diabetes']}}</td>
+                                    <td>{{row['alcoholism']}}</td>
+                                    <td>{{row['handicap']}}</td>
+                                    <td>{{row['sched_date']}}</td>
+                                    <td>{{row['appt_date']}}</td>
+                                    <td>{{row['waiting']}}</td>
+                                    <td>{{row['sms_received']}}</td>
+                                    <td>{{row['noshow']}}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tbody>
+                    </table>
+                </div> 
+            {% else %}
+                <h5 class="text-center my-3">
+                    Showing no random data of 95301 total data
+                </h5>
+            {% endif %}
+        </center>
+    </center>
+
+{% endblock %}

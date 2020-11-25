@@ -4,18 +4,52 @@
 
     <form action="{{url_for('pie_fn')}}" id="form">
         <div class ="my-5 row d-flex justify-content-center">
-            <!-- Hue -->
+            <!-- Chart -->
             <div class="col-2">
-                <p class="text-center lead">Hue</p>
-                <select class="form-control" name="hue" onchange="form.submit()">
-                    {% for drop in drop_hue %}
-                        {% if focus_hue == drop[0] %}
+                <p class="text-center lead">Chart</p>
+                <select class="form-control" name="chart" onchange="form.submit()">
+                    {% for drop in drop_chart %}
+                        {% if focus_chart == drop[0] %}
                             return '<option value={{drop[0]}} selected>{{drop[1]}}</option>'
                         {% else %}
                             return '<option value={{drop[0]}}>{{drop[1]}}</option>'
                         {% endif %}
                     {% endfor %}
                 </select>
+            </div>
+            
+            <!-- Feature -->
+            <div class="col-2">
+                <p class="text-center lead">Feature</p>
+                <select class="form-control" name="feature" onchange="form.submit()">
+                    {% for drop in drop_feature %}
+                        {% if focus_feature == drop[0] %}
+                            return '<option value={{drop[0]}} selected>{{drop[1]}}</option>'
+                        {% else %}
+                            return '<option value={{drop[0]}}>{{drop[1]}}</option>'
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <!-- Hue -->
+            <div class="col-2">
+                <p class="text-center lead">Hue</p>
+                {% if focus_chart == 'pie' %}
+                    <select class="form-control" name="hue" disabled>
+                        <option>Disable</option>
+                    </select>
+                {% else %}
+                    <select class="form-control" name="hue" onchange="form.submit()">
+                        {% for drop in drop_hue %}
+                            {% if focus_hue == drop[0] %}
+                                return '<option value={{drop[0]}} selected>{{drop[1]}}</option>'
+                            {% else %}
+                                return '<option value={{drop[0]}}>{{drop[1]}}</option>'
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                {% endif %}
             </div>
         </div>
     </form>

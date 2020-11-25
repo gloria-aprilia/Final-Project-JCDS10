@@ -1,55 +1,84 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
+<html>
+<head lang="en">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DASHBOARD</title>
-    <!-- agar dapat menggunakan class bootstrap secara offline -->
-    <link rel="stylesheet" href="../static/bootstrap.css">
 
-    <!-- untuk dapat memunculkan chart dari plotly -->
+        {% if title %}
+            <title>Finalized Dashboard - {{ title }}</title>
+        {% else %}
+            <title>Finalized Dashboard</title>
+        {% endif %}
+
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
 
-    <!-- Untuk script update database -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+     <!-- Untuk script update database -->
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='table.css') }}">
+     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
-
 <body>
-
     <div class="container">
         <!-- Judul Dashboard -->
-        <a class="text-decoration-none text-secondary" href="{{url_for('index')}}">
-            <h1 class="text-center text-capitalize display-4 my-5">
-                TIPS Dashboard
+        <div class="text-decoration-none text-secondary">
+            <h1 class="text-center text-capitalize display-4 my-3">
+                Medical Appointment - No Show Behavior
             </h1>
-        </a>
-        <!-- membuat menu navigasi untuk pindah halaman / tampilan plot -->
-        <ul class="nav nav-pills nav-fill">
-            <li class="nav-item font-weight-bold">
-                <a 
-                    class="nav-link text-dark lead" 
-                >
-                    Histogram & Box
-                </a>
-            </li>
-           
-        </ul>
+            <h3 class="text-center my-3">
+                Final Project JSDS - Gloria Aprilia
+            </h3>
+            <ul class="nav nav-pills nav-fill">
+                <li class="nav-item font-weight-bold">
+                    <a class="nav-link text-dark lead" href="{{url_for('insights_fn', nav=True)}}">Insights</a>
+                </li>
+                <li class="nav-item font-weight-bold">
+                    <a class="nav-link text-dark lead" href="{{url_for('data_fn', nav=True)}}">See The Data</a>
+                </li>
+                <li class="nav-item font-weight-bold">
+                    <a class="nav-link text-dark lead" href="{{url_for('cat_fn', nav=True)}}">Distribution Plot</a>
+                </li>
+                <li class="nav-item font-weight-bold">
+                    <a class="nav-link text-dark lead" href="{{url_for('pie_fn')}}">Count Plot</a>
+                </li>
+                <li class="nav-item font-weight-bold">
+                    <a class="nav-link text-dark lead" href="{{url_for('predict_fn')}}">Prediction</a>
+                </li>
+            </ul>
+            <!-- <div style="display:flex;justify-content:center;">
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-outline-primary active">
+                      <input type="radio" name="options" id="option1" checked>
+                      Distribution Plot
+                    </label>
+                    <label class="btn btn-outline-primary">
+                      <input type="radio" name="options" id="option2">
+                      Count Plot
+                    </label>
+                    <label class="btn btn-outline-primary">
+                      <input type="radio" name="options" id="option3"> 
+                      Data Entry
+                    </label>
+                    <label class="btn btn-outline-primary">
+                        <input type="radio" name="options" id="option3"> 
+                        Prediction
+                    </label>
+                </div>
+            </div> -->
 
+            <!-- <ol class="breadcrumb my-5">
+                <li class="breadcrumb-item"><a href="{{url_for('index')}}">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Distribution plot</li>
+            </ol> -->
+            
+        </div>
+        
         {% block content %} {% endblock %}
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-
+<script src="{{ url_for('static', filename='js/jquery-1.11.1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/plots.js') }}"></script>
 </body>
-
 </html>

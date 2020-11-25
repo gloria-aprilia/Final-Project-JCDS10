@@ -1,0 +1,46 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<form action="{{url_for('cat_fn', nav=False)}}" id="form">
+    <div class="my-5 row d-flex justify-content-center">
+        <!-- Dropdwon Jenis Plot -->
+        <div class="col-2">
+            <p class="text-center lead">Plot</p>
+            <select class="form-control" name="cat_plot" onchange="form.submit()">
+                {% for drop in drop_plot %}
+                    {% if focus_plot == drop[0] %}
+                        return '<option value={{drop[0]}} selected>{{drop[1]}}</option>'
+                    {% else %}
+                        return '<option value={{drop[0]}}>{{drop[1]}}</option>'
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Dropdwon Sumbu X -->
+        <div class="col-2">
+            <p class="text-center lead">Feature</p>
+            <select class="form-control" name="cat_x" onchange="form.submit()">
+                {% for drop in drop_x %}
+                    {% if focus_x == drop[0] %}
+                        return '<option value={{drop[0]}} selected>{{drop[1]}}</option>'
+                    {% else %}
+                        return '<option value={{drop[0]}}>{{drop[1]}}</option>'
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+</form>
+
+    <!-- Workspace / Display -->
+    <div class="col-md-12">
+        <div class="chart" id="bargraph">
+            <script>
+                var graphs = {{plot | safe}};
+                Plotly.plot('bargraph',graphs,{});
+            </script>
+        </div>
+    </div>
+{% endblock content %}
