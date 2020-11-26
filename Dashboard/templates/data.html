@@ -33,7 +33,7 @@
                         <thead>
                             <tr>
                             {% for header in disp[0].keys() %}
-                                <th>{{header}}</th>
+                                <th style='background-color: rgb(4,122,133)';>{{header}}</th>
                             {% endfor %}
                             </tr>
                         </thead>
@@ -49,11 +49,11 @@
                                     <td>{{row['hypertension']}}</td>
                                     <td>{{row['diabetes']}}</td>
                                     <td>{{row['alcoholism']}}</td>
-                                    <td>{{row['handicap']}}</td>
                                     <td>{{row['sched_date']}}</td>
                                     <td>{{row['appt_date']}}</td>
                                     <td>{{row['waiting']}}</td>
                                     <td>{{row['sms_received']}}</td>
+                                    <td>{{row['handicap']}}</td>
                                     <td>{{row['noshow']}}</td>
                                 </tr>
                             {% endfor %}
