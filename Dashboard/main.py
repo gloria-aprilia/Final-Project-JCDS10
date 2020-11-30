@@ -225,7 +225,8 @@ def result():
         appt_date = request.form.get('appt_date')
         appt_date = datetime.strptime(appt_date, '%Y-%m-%d')
         #age
-        age = request.form.get('age')
+        age = int(request.form.get('age'))
+        age_scaled = round(age/75, 4)
         #scholarship
         scholarship = int(request.form.get('scholarship'))
         #hypertension
@@ -242,8 +243,8 @@ def result():
         waiting = waiting.days
 
         #predict patient
-        pred = model.predict([[waiting, sms_received, scholarship, diabetes, hypertension, age]])[0].round(2)
-        prob = model.predict_proba([[waiting, sms_received, scholarship, diabetes, hypertension, age]])
+        pred = model.predict([[waiting, sms_received, scholarship, diabetes, hypertension, age_scaled]])[0].round(2)
+        prob = model.predict_proba([[waiting, sms_received, scholarship, diabetes, hypertension, age_scaled]])
     return render_template('result.html',                            
                             waiting=waiting,
                             age=age,
