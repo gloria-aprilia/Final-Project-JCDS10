@@ -243,8 +243,12 @@ def result():
         waiting = waiting.days
 
         #predict patient
-        pred = model.predict([[waiting, sms_received, scholarship, diabetes, hypertension, age_scaled]])[0].round(2)
-        prob = model.predict_proba([[waiting, sms_received, scholarship, diabetes, hypertension, age_scaled]])
+        predict = model.predict([[waiting, sms_received, scholarship, diabetes, hypertension, age_scaled]])[0].round(2)
+        if predict == 1:
+            pred = "No Show"
+        else:
+            pred = "Show"
+        prob = round((model.predict_proba([[waiting, sms_received, scholarship, diabetes, hypertension, age_scaled]])[0][0]*100), 2)
     return render_template('result.html',                            
                             waiting=waiting,
                             age=age,
